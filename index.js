@@ -16,13 +16,7 @@ mongoose.connect(
 
 // Getting Request
 app.get("/", (req, res) => {
-  // Sending the response
-  // res.send("Hello World!❤..");
-  // res.sendFile(path.join(__dirname, "views", "index.html"));
   res.sendFile(path.join(__dirname, "./views/index.html"));
-
-  // Ending the response
-  // res.end();
 });
 
 // Establishing the port
