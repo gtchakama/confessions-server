@@ -4,6 +4,8 @@ const mongoose = require("mongoose");
 const UserModel = require("./models/Users");
 const ConfessionsModel = require("./models/Confessions");
 const cors = require("cors");
+const path = require("path");
+
 require("dotenv").config();
 app.use(express.json());
 app.use(cors());
@@ -15,10 +17,12 @@ mongoose.connect(
 // Getting Request
 app.get("/", (req, res) => {
   // Sending the response
-  res.send("Hello World!❤..");
+  // res.send("Hello World!❤..");
+  // res.sendFile(path.join(__dirname, "views", "index.html"));
+  res.sendFile(path.join(__dirname, "./views/index.html"));
 
   // Ending the response
-  res.end();
+  // res.end();
 });
 
 // Establishing the port
