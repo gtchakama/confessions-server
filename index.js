@@ -41,12 +41,16 @@ app.delete("/deleteConfession", (req, res) => {
     }
   });
 });
-// app.delete("/cars/:id", async (req, res) => {
-//   const confessionId = req.params.id;
-//   const query = { _id: ObjectId(confessionId) };
-//   const result = await ConfessionsModel.deleteOne(query);
-//   res.send(result);
-// });
+/**
+ * /api/deleteConfession/:id
+ * DELETE Single Confession
+ */
+
+app.delete("/deleteConfession/:id", async (req, res) => {
+  let paramID = req.params.id;
+  const data = await ConfessionsModel.deleteOne({ _id: paramID });
+  res.send(data);
+});
 
 app.get("/getConfessions", (req, res) => {
   ConfessionsModel.find({}, (err, result) => {
