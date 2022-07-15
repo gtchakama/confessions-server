@@ -31,16 +31,6 @@ app.post("/createConfession", async (req, res) => {
 
   res.json(confession);
 });
-app.delete("/deleteConfession", (req, res) => {
-  const confessionId = req.body;
-  ConfessionsModel.deleteOne({ confessionId }, (err, result) => {
-    if (err) {
-      res.json(err);
-    } else {
-      res.json(result);
-    }
-  });
-});
 /**
  * /api/deleteConfession/:id
  * DELETE Single Confession
