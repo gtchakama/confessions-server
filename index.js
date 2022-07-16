@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-const UserModel = require("./models/Users");
+const PopularModel = require("./models/popular");
 const ConfessionsModel = require("./models/Confessions");
 const cors = require("cors");
 const path = require("path");
@@ -21,8 +21,12 @@ app.get("/", (req, res) => {
 
 // Establishing the port
 const PORT = process.env.PORT || 3002;
-
-app.post("/createConfession", async (req, res) => {
+/**
+ * /api/createConfession
+ * Create a Single Confession
+ * Client Side
+ */
+app.post("/api/createConfession", async (req, res) => {
   const confession = req.body;
   const newConfession = new ConfessionsModel(confession);
   await newConfession.save();
@@ -30,17 +34,37 @@ app.post("/createConfession", async (req, res) => {
   res.json(confession);
 });
 /**
+ * /api/SendPopular
+ * Create a Single Confession
+ * Admin Side
+ */
+app.post("/api/SendPopular", async (req, res) => {
+  const confession = req.body;
+  const newConfession = new PopularModel(confession);
+  await newConfession.save();
+
+  res.json(confession);
+});
+
+/**
  * /api/deleteConfession/:id
- * DELETE Single Confession
+ * Create a Single Confession
+ * Admin Side
  */
 
-app.delete("/deleteConfession/:id", async (req, res) => {
+app.delete("/api/deleteConfession/:id", async (req, res) => {
   let paramID = req.params.id;
   const data = await ConfessionsModel.deleteOne({ _id: paramID });
   res.send(data);
 });
 
-app.get("/getConfessions", (req, res) => {
+/**
+ * /api/getConfessions
+ * Get a Single Confession
+ * Client Side
+ */
+
+app.get("/api/getConfessions", (req, res) => {
   ConfessionsModel.find({}, (err, result) => {
     if (err) {
       res.json(err);
@@ -49,9 +73,21 @@ app.get("/getConfessions", (req, res) => {
     }
   });
 });
-// // listening
-// app.listen(3001, () => {
-//   console.log(`listening on 3001..`);
-// });
+
+/**
+ * /api/getConfessions
+ * Get popular Confessions
+ * Client Side
+ */
+
+app.get("/api/getpopularConfessions", (req, res) => {
+  PopularModel.find({}, (err, result) => {
+    if (err) {
+      res.json(err);
+    } else {
+      res.json(result);
+    }
+  });
+});
 // Executing the server on given port number
 app.listen(PORT, console.log(`Server started on port ${PORT}`));
