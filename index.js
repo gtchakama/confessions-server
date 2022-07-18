@@ -16,6 +16,7 @@ mongoose.connect(
 
 // Getting Request
 app.get("/", (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
   res.sendFile(path.join(__dirname, "./views/index.html"));
 });
 
@@ -27,6 +28,7 @@ const PORT = process.env.PORT || 3002;
  * Client Side
  */
 app.post("/api/createConfession", async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
   const confession = req.body;
   const newConfession = new ConfessionsModel(confession);
   await newConfession.save();
@@ -39,11 +41,16 @@ app.post("/api/createConfession", async (req, res) => {
  * Admin Side
  */
 app.post("/api/SendPopular", async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
   const confession = req.body;
   const newConfession = new PopularModel(confession);
   await newConfession.save();
 
-  res.json(confession);
+  if (res.statusCode === 200) {
+    res.json(confession);
+  } else {
+    res.json({ err: "Error creating new Popular Confession" });
+  }
 });
 
 /**
@@ -53,6 +60,7 @@ app.post("/api/SendPopular", async (req, res) => {
  */
 
 app.delete("/api/deleteConfession/:id", async (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
   let paramID = req.params.id;
   const data = await ConfessionsModel.deleteOne({ _id: paramID });
   res.send(data);
@@ -65,6 +73,7 @@ app.delete("/api/deleteConfession/:id", async (req, res) => {
  */
 
 app.get("/api/getConfessions", (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
   ConfessionsModel.find({}, (err, result) => {
     if (err) {
       res.json(err);
@@ -81,6 +90,7 @@ app.get("/api/getConfessions", (req, res) => {
  */
 
 app.get("/api/getpopularConfessions", (req, res) => {
+  res.set("Access-Control-Allow-Origin", "*");
   PopularModel.find({}, (err, result) => {
     if (err) {
       res.json(err);
