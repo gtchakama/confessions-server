@@ -8,7 +8,7 @@ const path = require("path");
 
 require("dotenv").config();
 app.use(express.json());
-app.use(cors());
+app.use(cors({ origin: "*" }));
 
 mongoose.connect(
   "mongodb://george:chakama@ac-xaiwvv6-shard-00-00.vscsf1s.mongodb.net:27017,ac-xaiwvv6-shard-00-01.vscsf1s.mongodb.net:27017,ac-xaiwvv6-shard-00-02.vscsf1s.mongodb.net:27017/?ssl=true&replicaSet=atlas-ee85j1-shard-0&authSource=admin&retryWrites=true&w=majority"
