@@ -70,7 +70,11 @@ app.delete("/api/deleteConfession/:id", async (req, res) => {
   const data = await ConfessionsModel.deleteOne({ _id: paramID });
   res.send(data);
 });
-
+/**
+ * /api/findConfession/:id
+ * Get a Single Confession
+ *
+ */
 app.get("/api/findConfession/:id", async (req, res) => {
   res.set("Access-Control-Allow-Origin", "*");
   let paramID = req.params.id;
